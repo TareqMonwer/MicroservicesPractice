@@ -1,7 +1,5 @@
 from django.http import HttpResponse
-from oauth2_provider.decorators import protected_resource
+from oauth2_provider.contrib.rest_framework import TokenHasResourceScope
 
 
-@protected_resource()
-def protected_view(request):
-    return HttpResponse("<h1>Protected Resource</h1>")
+
