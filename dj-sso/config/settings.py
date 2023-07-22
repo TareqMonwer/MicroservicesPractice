@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
+from datetime import timedelta
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -20,7 +21,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-oc*dldqbn@h0$@n%xcw$=07z*ykg%7)i5clmr293*0r&$vh#wy'
+SECRET_KEY = 'django-insecure-g^emj2%2dx_2=8n)u=3%dl!4gn7lwuph2ka*g_dfnmkh$fluie'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -42,6 +43,7 @@ INSTALLED_APPS = [
 
     'oauth2_provider',
     'rest_framework',
+    'rest_framework_simplejwt',
 ]
 
 MIDDLEWARE = [
@@ -138,7 +140,14 @@ AUTHENTICATION_BACKENDS = (
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
-        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        # 'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
+        # 'rest_framework.authentication.SessionAuthentication',
     ],
+}
+
+SIMPLE_JWT = {
+    'JWT_VERIFY': True,
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
 }
